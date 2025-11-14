@@ -1,54 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Store | Blu-ray & DVD</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Store</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <header>
-        <div class="logo">
-            <h1>Movie Store</h1>
-        </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Genres</a></li>
-                <li><a href="checkout.html">Cart</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <div class="logo"><h1>Movie Store</h1></div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="checkout/index.html">Cart</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    
+  <main>
     <section class="hero">
-        <h2>Discover Your Favorite Movies</h2>
-        <p>Explore a wide selection of films on Blu-ray and DVD.</p>
+      <h2>Discover your favorite movies</h2>
+      <p>Browse our collection and add movies to your basket.</p>
     </section>
 
-    
-    <main>
-        <section class="movie-grid" id="movie-list">
-            <!-- Example movie card (dynamically generated via JS) -->
-            <!--
-            <div class="movie-card">
-                <img src="example.jpg" alt="Movie Title">
-                <div class="movie-info">
-                    <h3>Movie Title</h3>
-                    <a href="#" class="btn">Buy Now</a>
-                </div>
-            </div>
-            -->
-        </section>
-    </main>
+    <section id="movie-list" class="movie-grid">
+    </section>
+  </main>
 
-    
-    <footer>
-        <p>&copy; 2025 Movie Store. All rights reserved.</p>
-    </footer>
+  <footer>
+    <p>&copy; 2025 Movie Store. All rights reserved.</p>
+  </footer>
 
-    
-    <script type="module" src="home.js"></script>
+  <script type="module" src="js/home.js"></script>
 </body>
 </html>
