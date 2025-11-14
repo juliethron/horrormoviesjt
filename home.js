@@ -1,45 +1,43 @@
-
-
-const apiUrl = "https://v2.api.noroff.dev/square-eyes";
 const container = document.querySelector("#movie-list");
 
-async function getMovies() {
-    container.innerHTML = `<p class="loading">Loading horror titles...</p>`;
+const demoMovies = [
+    {
+        id: "1",
+        title: "Inception",
+        description: "A mind‑bending thriller where dreams become reality.",
+        genre: "Sci‑Fi / Action",
+        price: 19.99,
+        discountedPrice: 17.99,
+        onSale: true,
+        image: { url: "images/inception.jpg", alt: "Poster for Inception" }
+    },
+    {
+        id: "2",
+        title: "The Lion King",
+        description: "A young lion prince flees his kingdom only to learn the true meaning of responsibility and bravery.",
+        genre: "Animation / Family",
+        price: 17.99,
+        discountedPrice: 17.99,
+        onSale: false,
+        image: { url: "images/lionking.jpg", alt: "Poster for The Lion King" }
+    },
+];
 
-    try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-        throw new Error("Failed to fetch movies.");
-    }
-
-    const result = await response.json();
-    const movies = result.data;
-
-    if (!movies || movies.length === 0) {
-        container.innerHTML = `<p class="error">No movies found. Try again later.</p>`;
-        return;
-    }
-
+function loadMovies() {
     container.innerHTML = "";
-    movies.forEach((movie) => {
+    demoMovies.forEach(movie => {
         container.innerHTML += `
-        <div class="movie-card">
-            <img src="${movie.image.url}" alt="${movie.image.alt || movie.title}" />
-            <div class="movie-info">
-            <h3>${movie.title}</h3>
-            <p>${movie.genre || "Horror / Thriller"}</p>
-            <p>$${movie.price}</p>
-            <a href="product/index.html?id=${movie.id}" class="btn">View Details</a>
+            <div class="movie-card">
+                <img src="${movie.image.url}" alt="${movie.image.alt}" />
+                <div class="movie-info">
+                    <h3>${movie.title}</h3>
+                    <p>${movie.genre}</p>
+                    <p>$${movie.price.toFixed(2)}</p>
+                    <a href="product/index.html?id=${encodeURIComponent(movie.id)}" class="btn">View Details</a>
+                </div>
             </div>
-        </div>
         `;
     });
-    } catch (error) {
-    container.innerHTML = `
-        <p class="error">⚠️ Something went wrong while loading movies.<br>
-        Please check your connection or try again later.</p>
-    `;
-    }
 }
 
-getMovies();
+loadMovies();
