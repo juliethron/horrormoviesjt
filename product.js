@@ -1,29 +1,34 @@
-import { movies } from "./home.js";
-
 const container = document.querySelector("#movie-details");
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-const movie = movies.find(item => item.id === id);
+async function fetchProduct() {
+    container.innerHTML = `<p class="loading">Loading product...</p>`;
+    try {
+        const res = await fetch(`https://api.noroff.dev/api/v1/square-eyes/${id}`);
+        if (!res.ok) throw new Error("Product not found.");
+        const product = await res.json();
 
-if (!movie) {
-    container.innerHTML = `<p class="error">Movie not found.</p>`;
-} else {
-    container.innerHTML = `
-        <img src="${movie.image.url}" alt="${movie.image.alt}">
-        <h1>${movie.title}</h1>
-        <p><strong>Genre:</strong> ${movie.genre}</p>
-        <p>${movie.description}</p>
-        <p class="price"><strong>Price:</strong> $${movie.price.toFixed(2)}</p>
-        <button id="addToCart" class="btn">Add to Basket</button>
-    `;
+        container.innerHTML = `
+            <img src="${product.imageUrl}" alt="${product.name}" />
+            <h1>${product.name}</h1>
+            <p><strong>Genre:</strong> ${product.genre}</p>
+            <p>${product.description}</p>
+            <p class="price"><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+            <button id="addToCart" class="btn">Add to Basket</button>
+        `;
 
-    document.querySelector("#addToCart").addEventListener("click", () => addToCart(movie));
+        document.querySelector("#addToCart").addEventListener("click", () => addToCart(product));
+    } catch (error) {
+        container.innerHTML = `<p class="error">⚠️ ${error.message}</p>`;
+    }
 }
 
-function addToCart(movie) {
+function addToCart(product) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(movie);
+    cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`"${movie.title}" has been added to your basket!`);
+    alert(`"${product.name}" has been added to your basket!`);
 }
+
+document.addEventListener("DOMContentLoaded", fetchProduct);
